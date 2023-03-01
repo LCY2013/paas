@@ -18,7 +18,7 @@ var new = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		err := module.NewServiceProject(cmd, args)
+		err := module.NewServiceProject(cmd, args, true)
 		if err != nil {
 			return
 		}
@@ -37,7 +37,7 @@ var newService = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		err := module.NewServiceProject(cmd, args)
+		err := module.NewServiceProject(cmd, args, false)
 		if err != nil {
 			return
 		}

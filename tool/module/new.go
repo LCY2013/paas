@@ -46,6 +46,8 @@ type config struct {
 	Files []file
 	// 说明
 	Comments []string
+	// 是否需要创建本地服务名称目录
+	CreateAlias bool
 }
 
 type file struct {
@@ -95,7 +97,12 @@ func create(c config) error {
 
 	// write the files
 	for _, file := range c.Files {
-		f := filepath.Join(c.Dir, file.Path)
+		rootDir := c.Dir
+		if c.CreateAlias {
+			rootDir = c.Alias
+		}
+
+		f := filepath.Join(rootDir, file.Path)
 		dir := filepath.Dir(f)
 
 		if _, err := os.Stat(dir); os.IsNotExist(err) {
@@ -141,7 +148,7 @@ func addFileToTree(root treeprint.Tree, file string) {
 	}
 }
 
-func NewServiceProject(ctx *cobra.Command, args []string) error {
+func NewServiceProject(ctx *cobra.Command, args []string, createDir bool) error {
 
 	for _, serviceArg := range args {
 		serviceSlice := strings.Split(serviceArg, "/")
@@ -176,6 +183,7 @@ func NewServiceProject(ctx *cobra.Command, args []string) error {
 				{".gitignore", tmpl.GitIgnore},
 				{"go.mod", tmpl.Module},
 			},
+			CreateAlias: createDir,
 		}
 		// create the files
 
