@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package pod;
+
+option go_package = "./proto/pod;pod";
+
+service Pod {
+	//对外提供添加服务
+	rpc AddPod(PodInfo) returns (Response) {}
+	rpc DeletePod(PodId) returns (Response) {}
+	rpc UpdatePod(PodInfo) returns (Response) {}
+	rpc FindPodByID(PodId) returns (PodInfo) {}
+	rpc FindAllPod(FindAll) returns (AllPod) {}
+}
+message PodInfo {
+	int64 id = 1;
+}
+
+message PodId {
+	int64 id = 1;
+}
+
+message FindAll {
+
+}
+
+message Response {
+	string msg =1 ;
+}
+
+message AllPod {
+	repeated PodInfo pod_info = 1;
+}
+
+
