@@ -4,7 +4,7 @@ var (
 	Makefile = `
 .PHONY: proto
 proto:
-	sudo docker run --rm -v $(shell pwd):$(shell pwd) -w $(shell pwd) luochunyun/protoc --proto_path=. --micro_out=. --go_out=:. ./proto/{{.Alias}}/{{.Alias}}.proto
+	docker run --rm -v $(shell pwd):$(shell pwd) -w $(shell pwd) luochunyun/protoc:1.0.0 --proto_path=. --micro_out=. --go_out=:. ./proto/{{.Alias}}/{{.Alias}}.proto
 
 .PHONY: build
 build:
