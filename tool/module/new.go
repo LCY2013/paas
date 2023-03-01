@@ -123,7 +123,7 @@ func create(c config) error {
 	fmt.Printf(t.String())
 
 	for _, comment := range c.Comments {
-		fmt.Printf(comment)
+		fmt.Println(comment)
 	}
 
 	// just wait
