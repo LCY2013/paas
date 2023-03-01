@@ -4,30 +4,34 @@ var (
 	MainSRV = `package main
 
 import (
+	"base/domain/repository"
 	"flag"
 	"fmt"
-	"github.com/LCY2013/paas/common"
-	"{{.Dir}}/domain/repository"
-	"path/filepath" 
-    
+	"github.com/LCY2013/paas/common/config"
+	"github.com/LCY2013/paas/common/db"
+	log "github.com/LCY2013/paas/common/logger"
+	"github.com/LCY2013/paas/common/monitor"
+	"github.com/LCY2013/paas/common/trace"
+	"path/filepath"
+
+	ds "base/domain/service"
+	"base/handler"
 	//"github.com/afex/hystrix-go/hystrix"
+	base "base/proto/base"
 	"github.com/go-micro/plugins/v4/registry/consul"
-	ds "{{.Dir}}/domain/service"
 	ratelimit "github.com/go-micro/plugins/v4/wrapper/select/roundrobin"
 	wo "github.com/go-micro/plugins/v4/wrapper/trace/opentracing"
+	"github.com/jinzhu/gorm"
+	"github.com/opentracing/opentracing-go"
 	"go-micro.dev/v4"
 	"go-micro.dev/v4/registry"
-    "go-micro.dev/v4/server"
-	"github.com/jinzhu/gorm"
+	"go-micro.dev/v4/server"
 	_ "gorm.io/driver/mysql"
-	"github.com/opentracing/opentracing-go"
-	"{{.Dir}}/handler"
-	//hystrix2 "{{.Dir}}/plugin/hystrix"
-	"strconv"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/util/homedir"
-	{{.Alias}} "{{.Dir}}/proto/{{.Alias}}"
+	//hystrix2 "base/plugin/hystrix"
+	"strconv"
 
 )
 
@@ -60,27 +64,27 @@ func main() {
 		}
 	})
 	//2.配置中心，存放经常变动的变量
-	consulConfig,err := common.GetConsulConfig(consulHost,consulPort,"/micro/config")
+	consulConfig,err := config.GetConsulConfig(consulHost,consulPort,"/micro/config")
 	if err !=nil {
-		common.Error(err)
+		log.Error(err)
 	}
 	//3.使用配置中心连接 mysql
-	mysqlInfo := common.GetMysqlFromConsul(consulConfig,"mysql")
+	mysqlInfo := db.GetMysqlFromConsul(consulConfig,"mysql")
 	//初始化数据库
 	db,err := gorm.Open("mysql",mysqlInfo.User+":"+mysqlInfo.Pwd+"@("+mysqlInfo.Host+":3306)/"+mysqlInfo.Database+"?charset=utf8&parseTime=True&loc=Local")
 	if err !=nil {
         //命令行输出下，方便查看错误
 		fmt.Println(err)
-		common.Fatal(err)
+		log.Fatal(err)
 	}
 	defer db.Close()
 	//禁止复表
 	db.SingularTable(true)
 
 	//4.添加链路追踪
-	t,io,err := common.NewTracer("go.micro.service.{{.Alias}}",tracerHost+":"+strconv.Itoa(tracerPort))
+	t,io,err := trace.NewTracer("go.micro.service.{{.Alias}}",tracerHost+":"+strconv.Itoa(tracerPort))
 	if err !=nil {
-		common.Error(err)
+		log.Error(err)
 	}
 	defer io.Close()
 	opentracing.SetGlobalTracer(t)
@@ -93,7 +97,7 @@ func main() {
 	//1）需要程序日志打入到日志文件中
 	//2）在程序中添加filebeat.yml 文件
 	//3) 启动filebeat，启动命令 ./filebeat -e -c filebeat.yml
-	fmt.Println("日志统一记录在根目录 micro.log 文件中，请点击查看日志！")
+	log.Info("日志统一记录在根目录 micro.log 文件中，请点击查看日志！")
 
 	//启动监听程序
 	//go func() {
@@ -101,12 +105,12 @@ func main() {
 	//	//看板访问地址 http://127.0.0.1:9002/hystrix，url后面一定要带 /hystrix
 	//	err = http.ListenAndServe(net.JoinHostPort("0.0.0.0",strconv.Itoa(hystrixPort)),hystrixStreamHandler)
 	//	if err !=nil {
-	//		common.Error(err)
+	//		log.Error(err)
 	//	}
 	//}()
 
 	//5.添加监控
-	common.PrometheusBoot(prometheusPort)
+	monitor.PrometheusBoot(prometheusPort)
 
 
 	//下载kubectl：https://kubernetes.io/docs/tasks/tools/#tabset-2
@@ -132,7 +136,7 @@ func main() {
 	flag.Parse()
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
-		common.Fatal(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	//在集群中外的配置
@@ -144,7 +148,7 @@ func main() {
 	// create the clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		common.Fatal(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	//7.创建服务
@@ -173,7 +177,7 @@ func main() {
 	//只能执行一遍
 	//err = repository.New{{title .Alias}}Repository(db).InitTable()
 	//if err != nil {
-	//	common.Fatal(err)
+	//	log.Fatal(err)
 	//}
 
 	// 注册句柄，可以快速操作已开发的服务
@@ -183,7 +187,7 @@ func main() {
 	// 启动服务
 	if err := service.Run(); err != nil {
         //输出启动失败信息
-		common.Fatal(err)
+		log.Fatal(err)
 	}
 }
 
@@ -192,7 +196,9 @@ func main() {
 
 import (
 	"fmt"
-	"github.com/LCY2013/paas/common"
+	"github.com/LCY2013/paas/common/trace"
+	"github.com/LCY2013/paas/common/monitor"
+	log "github.com/LCY2013/paas/common/logger"
     go_micro_service_{{.ApiDefaultServerName}} "git.imooc.com/coding-535/{{.ApiDefaultServerName}}/proto/{{.ApiDefaultServerName}}"
 	"github.com/afex/hystrix-go/hystrix"
 	"github.com/go-micro/plugins/v4/registry/consul"
@@ -245,9 +251,9 @@ func main() {
  
 
 	//2.添加链路追踪
-	t,io,err := common.NewTracer("go.micro.api.{{.Alias}}",tracerHost+":"+strconv.Itoa(tracerPort))
+	t,io,err := trace.NewTracer("go.micro.api.{{.Alias}}",tracerHost+":"+strconv.Itoa(tracerPort))
 	if err !=nil {
-		common.Error(err)
+		log.Error(err)
 	}
 	defer io.Close()
 	opentracing.SetGlobalTracer(t)
@@ -260,7 +266,7 @@ func main() {
 	//1）需要程序日志打入到日志文件中
 	//2）在程序中添加filebeat.yml 文件
 	//3) 启动filebeat，启动命令 ./filebeat -e -c filebeat.yml
-	fmt.Println("日志统一记录在根目录 micro.log 文件中，请点击查看日志！")
+	log.Info("日志统一记录在根目录 micro.log 文件中，请点击查看日志！")
 
 	//启动监听程序
 	go func() {
@@ -268,12 +274,12 @@ func main() {
 		//看板访问地址 http://127.0.0.1:9002/hystrix，url后面一定要带 /hystrix
 		err = http.ListenAndServe(net.JoinHostPort("0.0.0.0",strconv.Itoa(hystrixPort)),hystrixStreamHandler)
 		if err !=nil {
-			common.Error(err)
+			log.Error(err)
 		}
 	}()
 
 	//4.添加监控
-	common.PrometheusBoot(prometheusPort)
+	monitor.PrometheusBoot(prometheusPort)
 
 	//5.创建服务
 	service := micro.NewService(
@@ -307,13 +313,13 @@ func main() {
 	{{.ApiDefaultServerName}}Service:=go_micro_service_{{.ApiDefaultServerName}}.New{{title .ApiDefaultServerName}}Service("go.micro.service.{{.ApiDefaultServerName}}",service.Client())
    // 注册控制器
 	if err := {{.Alias}}.Register{{title .Alias}}Handler(service.Server(), &handler.{{title .Alias}} { {{title .ApiDefaultServerName}}Service:{{.ApiDefaultServerName}}Service});err !=nil {
-		common.Error(err)
+		log.Error(err)
 	}
 
 	// 启动服务
 	if err := service.Run(); err != nil {
         //输出启动失败信息
-		common.Fatal(err)
+		log.Fatal(err)
 	}
 }
 `

@@ -18,9 +18,10 @@ var (
 import (
 	"context"
     "{{.Dir}}/domain/service"
-	log "go-micro.dev/v4/logger"
+	log "github.com/LCY2013/paas/common/logger"
 	{{.Alias}} "{{.Dir}}/proto/{{.Alias}}"
 )
+
 type {{title .Alias}}Handler struct{
      //注意这里的类型是 I{{title .Alias}}DataService 接口类型
      {{title .Alias}}DataService service.I{{title .Alias}}DataService
