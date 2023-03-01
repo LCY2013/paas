@@ -4,7 +4,7 @@ var (
 	MainSRV = `package main
 
 import (
-	"base/domain/repository"
+	"{{.Dir}}/domain/repository"
 	"flag"
 	"fmt"
 	"github.com/LCY2013/paas/common/config"
@@ -14,10 +14,10 @@ import (
 	"github.com/LCY2013/paas/common/trace"
 	"path/filepath"
 
-	ds "base/domain/service"
-	"base/handler"
+	ds "{{.Dir}}/domain/service"
+	"{{.Dir}}/handler"
 	//"github.com/afex/hystrix-go/hystrix"
-	base "base/proto/base"
+	base "{{.Dir}}/proto/{{lower .Alias}}"
 	"github.com/go-micro/plugins/v4/registry/consul"
 	ratelimit "github.com/go-micro/plugins/v4/wrapper/select/roundrobin"
 	wo "github.com/go-micro/plugins/v4/wrapper/trace/opentracing"

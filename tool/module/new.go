@@ -87,7 +87,7 @@ func write(c config, file, tmpl string) error {
 func create(c config) error {
 	// check if dir exists
 	if _, err := os.Stat(c.Dir); !os.IsNotExist(err) {
-		logrus.Errorf("%s: The directory already exists, cannot be created! Please delete and re-create.", c.Dir)
+		fmt.Printf("%s: The directory already exists, cannot be created! Please delete and re-create.", c.Dir)
 		return fmt.Errorf("%s already exists", c.Dir)
 	}
 
@@ -107,28 +107,28 @@ func create(c config) error {
 
 		if _, err := os.Stat(dir); os.IsNotExist(err) {
 			if err = os.MkdirAll(dir, 0755); err != nil {
-				logrus.Error(err)
+				fmt.Println(err)
 				return err
 			}
 		}
 
 		addFileToTree(t, file.Path)
 		if err := write(c, f, file.Tmpl); err != nil {
-			logrus.Error(err)
+			fmt.Println(err)
 			return err
 		}
 	}
 
 	// print tree
-	logrus.Info(t.String())
+	fmt.Printf(t.String())
 
 	for _, comment := range c.Comments {
-		logrus.Info(comment)
+		fmt.Printf(comment)
 	}
 
 	// just wait
 	<-time.After(time.Millisecond * 250)
-	logrus.Info("\n************congratulations! Project initialization succeeded!************\n")
+	fmt.Printf("\n************congratulations! Project initialization succeeded!************\n")
 	return nil
 }
 
