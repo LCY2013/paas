@@ -1,6 +1,7 @@
-package common
+package monitor
 
 import (
+	"github.com/LCY2013/paas/common/async"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -11,7 +12,7 @@ func PrometheusBoot(port int) {
 	http.Handle("/metrics", promhttp.Handler())
 
 	// 启动web服务
-	GO(func() {
+	async.GO(func() {
 		err := http.ListenAndServe("0.0.0.0:"+strconv.Itoa(port), nil)
 		if err != nil {
 			logrus.WithField("prometheus", "启动失败").Fatal(err)

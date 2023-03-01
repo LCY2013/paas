@@ -1,4 +1,4 @@
-package common
+package config
 
 import (
 	"github.com/go-micro/plugins/v4/config/source/consul"

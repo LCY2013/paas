@@ -1,4 +1,4 @@
-package common
+package trace
 
 import (
 	"github.com/opentracing/opentracing-go"
