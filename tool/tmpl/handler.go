@@ -96,7 +96,7 @@ import (
 	"context"
     "encoding/json"
 	log "go-micro.dev/v4/logger"
-    {{.ApiDefaultServerName}} "git.imooc.com/coding-535/{{.ApiDefaultServerName}}/proto/{{.ApiDefaultServerName}}"
+    {{.ApiDefaultServerName}} "{{.ApiDefaultServerName}}/proto/{{.ApiDefaultServerName}}"
 	{{.Alias}} "{{.Dir}}/proto/{{.Alias}}"
 )
 
