@@ -6,3 +6,13 @@
 
 ## 说明
 注释了其它插件的加载，如果需要修改需要自主安装
+
+## 使用说明
+
+```shell
+go run main.go api \
+  --registry=consul \
+  --registry_address=192.168.0.57:8500 \
+  --handler=api \
+  --namespace=go.micro.api
+```
