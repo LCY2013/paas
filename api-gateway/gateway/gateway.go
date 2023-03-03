@@ -8,6 +8,7 @@ import (
 	rrmicro "api/internal/resolver/api"
 	"api/stats"
 	"fmt"
+	grpcClient "github.com/go-micro/plugins/v4/client/grpc"
 	"go-micro.dev/v4"
 	ahandler "go-micro.dev/v4/api/handler"
 	aapi "go-micro.dev/v4/api/handler/api"
@@ -235,6 +236,9 @@ func Run(ctx *cli.Context, srvOpts ...micro.Option) {
 	case "path":
 		rr = path.NewResolver(ropts...)
 	case "grpc":
+		service.Init(func(options *micro.Options) {
+			options.Client = grpcClient.NewClient()
+		})
 		rr = grpc.NewResolver(ropts...)
 	}
 
