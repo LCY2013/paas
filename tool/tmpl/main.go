@@ -199,7 +199,6 @@ func main() {
 	MainAPI = `package main
 
 import (
-	"fmt"
 	"github.com/LCY2013/paas/common/trace"
 	"github.com/LCY2013/paas/common/monitor"
 	log "github.com/LCY2013/paas/common/logger"
@@ -314,9 +313,9 @@ func main() {
 	// 指定需要访问的服务，可以快速操作已开发的服务，
     // 默认API服务名称带有"Api"，程序会自动替换
     // 如果不带有特定字符会使用默认"XXX" 请自行替换
-	{{.ApiDefaultServerName}}Service:=go_micro_service_{{.ServerAlias}}.New{{title .ApiDefaultServerName}}Service("go.micro.service.{{.ApiDefaultServerName}}",service.Client())
+	{{.ServerAlias}}Service:=go_micro_service_{{.ServerAlias}}.New{{title .ServerAlias}}Service("go.micro.service.{{.ServerAlias}}",service.Client())
    // 注册控制器
-	if err := {{.Alias}}.Register{{title .Alias}}Handler(service.Server(), &handler.{{title .Alias}} { {{title .ApiDefaultServerName}}Service:{{.ApiDefaultServerName}}Service});err !=nil {
+	if err := {{.Alias}}.Register{{title .Alias}}Handler(service.Server(), &handler.{{title .Alias}} { {{title .ServerAlias}}Service:{{.ServerAlias}}Service});err !=nil {
 		log.Error(err)
 	}
 

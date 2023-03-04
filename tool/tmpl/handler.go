@@ -96,57 +96,57 @@ import (
 	"context"
     "encoding/json"
 	log "go-micro.dev/v4/logger"
-    {{.ApiDefaultServerName}} "{{.ApiDefaultServerName}}/proto/{{.ApiDefaultServerName}}"
+    {{.ServerAlias}} "{{.ApiDefaultServerName}}/proto/{{.ServerAlias}}"
 	{{.Alias}} "{{.Dir}}/proto/{{.Alias}}"
 )
 
 type {{title .Alias}} struct{
-    {{title .ApiDefaultServerName}}Service {{.ApiDefaultServerName}}.{{title .ApiDefaultServerName}}Service
+    {{title .ServerAlias}}Service {{.ServerAlias}}.{{title .ServerAlias}}Service
 }
 
 
-// {{.Alias}}.Find{{title .ApiDefaultServerName}}ById 通过API向外暴露为/{{.Alias}}/find{{title .ApiDefaultServerName}}ById，接收http请求
-// 即：/{{.Alias}}/Find{{title .ApiDefaultServerName}}ById 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Find{{title .ApiDefaultServerName}}ById 方法
-func (e *{{title .Alias}}) Find{{title .ApiDefaultServerName}}ById(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
-	log.Info("Received {{.Alias}}.Find{{title .ApiDefaultServerName}}ById request")
+// {{.Alias}}.Find{{title .ServerAlias}}ById 通过API向外暴露为/{{.Alias}}/find{{title .ServerAlias}}ById，接收http请求
+// 即：/{{.Alias}}/Find{{title .ServerAlias}}ById 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Find{{title .ServerAlias}}ById 方法
+func (e *{{title .Alias}}) Find{{title .ServerAlias}}ById(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
+	log.Info("Received {{.Alias}}.Find{{title .ServerAlias}}ById request")
 	rsp.StatusCode = 200
-	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Find{{title .ApiDefaultServerName}}ById'}")
+	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Find{{title .ServerAlias}}ById'}")
 	rsp.Body = string(b)
 	return nil
 }
 
-// {{.Alias}}.Add{{title .ApiDefaultServerName}} 通过API向外暴露为/{{.Alias}}/Add{{title .ApiDefaultServerName}}，接收http请求
-// 即：/{{.Alias}}/Add{{title .ApiDefaultServerName}} 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Add{{title .ApiDefaultServerName}} 方法
-func (e *{{title .Alias}}) Add{{title .ApiDefaultServerName}}(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
-	log.Info("Received {{.Alias}}.Add{{title .ApiDefaultServerName}} request")
+// {{.Alias}}.Add{{title .ServerAlias}} 通过API向外暴露为/{{.Alias}}/Add{{title .ServerAlias}}，接收http请求
+// 即：/{{.Alias}}/Add{{title .ServerAlias}} 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Add{{title .ServerAlias}} 方法
+func (e *{{title .Alias}}) Add{{title .ServerAlias}}(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
+	log.Info("Received {{.Alias}}.Add{{title .ServerAlias}} request")
 	rsp.StatusCode = 200
-	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Add{{title .ApiDefaultServerName}}'}")
+	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Add{{title .ServerAlias}}'}")
 	rsp.Body = string(b)
 	return nil
 }
 
-// {{.Alias}}.Delete{{title .ApiDefaultServerName}}ById 通过API向外暴露为/{{.Alias}}/Delete{{title .ApiDefaultServerName}}ById，接收http请求
-// 即：/{{.Alias}}/Delete{{title .ApiDefaultServerName}}ById 请求会调用go.micro.api.{{.Alias}} 服务的 {{.Alias}}.Delete{{title .ApiDefaultServerName}}ById 方法
-func (e *{{title .Alias}}) Delete{{title .ApiDefaultServerName}}ById(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
-	log.Info("Received {{.Alias}}.Delete{{title .ApiDefaultServerName}}ById request")
+// {{.Alias}}.Delete{{title .ServerAlias}}ById 通过API向外暴露为/{{.Alias}}/Delete{{title .ServerAlias}}ById，接收http请求
+// 即：/{{.Alias}}/Delete{{title .ServerAlias}}ById 请求会调用go.micro.api.{{.Alias}} 服务的 {{.Alias}}.Delete{{title .ServerAlias}}ById 方法
+func (e *{{title .Alias}}) Delete{{title .ServerAlias}}ById(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
+	log.Info("Received {{.Alias}}.Delete{{title .ServerAlias}}ById request")
 	rsp.StatusCode = 200
-	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Delete{{title .ApiDefaultServerName}}ById'}")
+	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Delete{{title .ServerAlias}}ById'}")
 	rsp.Body = string(b)
 	return nil
 }
 
-// {{.Alias}}.Update{{title .ApiDefaultServerName}} 通过API向外暴露为/{{.Alias}}/Update{{title .ApiDefaultServerName}}，接收http请求
-// 即：/{{.Alias}}/Update{{title .ApiDefaultServerName}} 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Update{{title .ApiDefaultServerName}} 方法
-func (e *{{title .Alias}}) Update{{title .ApiDefaultServerName}}(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
-	log.Info("Received {{.Alias}}.Update{{title .ApiDefaultServerName}} request")
+// {{.Alias}}.Update{{title .ServerAlias}} 通过API向外暴露为/{{.Alias}}/Update{{title .ServerAlias}}，接收http请求
+// 即：/{{.Alias}}/Update{{title .ServerAlias}} 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Update{{title .ServerAlias}} 方法
+func (e *{{title .Alias}}) Update{{title .ServerAlias}}(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
+	log.Info("Received {{.Alias}}.Update{{title .ServerAlias}} request")
 	rsp.StatusCode = 200
-	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Update{{title .ApiDefaultServerName}}'}")
+	b, _ := json.Marshal("{success:'成功访问/{{.Alias}}/Update{{title .ServerAlias}}'}")
 	rsp.Body = string(b)
 	return nil
 }
 
 // 默认的方法{{.Alias}}.Call 通过API向外暴露为/{{.Alias}}/call，接收http请求
-// 即：/{{.Alias}}/call或/{{.Alias}}/ 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Find{{title .ApiDefaultServerName}}ById 方法
+// 即：/{{.Alias}}/call或/{{.Alias}}/ 请求会调用go.micro.api.{{.Alias}} 服务的{{.Alias}}.Find{{title .ServerAlias}}ById 方法
 func (e *{{title .Alias}}) Call(ctx context.Context, req *{{.Alias}}.Request, rsp *{{.Alias}}.Response) error {
 	log.Info("Received {{.Alias}}.Call request")
 	rsp.StatusCode = 200
