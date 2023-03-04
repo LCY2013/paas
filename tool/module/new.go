@@ -40,6 +40,8 @@ type config struct {
 	Alias string
 	// 目录地址
 	Dir string
+	// API service name
+	ServerAlias string
 	// 在API模式下默认的后端名称
 	ApiDefaultServerName string
 	// 文件地址
@@ -207,16 +209,30 @@ func NewApiProject(ctx *cobra.Command, args []string, createDir bool) error {
 			return nil
 		}
 
-		apiDefaultServerName := "XXX"
+		apiDefaultServerName := "api"
 		//判断在API的状态下默认的服务名称
-		if strings.Contains(serviceName, "Api") {
+		if strings.Contains(serviceName, "api") {
+			//替换指定Api的字符为空
+			apiDefaultServerName = strings.Replace(serviceName, "api", "", 1)
+		} else if strings.Contains(serviceName, "Api") {
 			//替换指定Api的字符为空
 			apiDefaultServerName = strings.Replace(serviceName, "Api", "", 1)
+		}
+
+		defaultServerName := "api_service"
+		//判断在API的状态下默认的服务名称
+		if strings.Contains(serviceName, "api") {
+			//替换指定Api的字符为空
+			defaultServerName = strings.Replace(serviceArg, "api", "", 1)
+		} else if strings.Contains(serviceName, "Api") {
+			//替换指定Api的字符为空
+			defaultServerName = strings.Replace(serviceArg, "Api", "", 1)
 		}
 
 		c := config{
 			Alias:                serviceName,
 			Dir:                  serviceArg,
+			ServerAlias:          defaultServerName,
 			ApiDefaultServerName: apiDefaultServerName,
 			Comments:             protoComments(),
 			Files: []file{
