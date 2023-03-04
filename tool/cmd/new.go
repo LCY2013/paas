@@ -65,7 +65,7 @@ var api = &cobra.Command{
 }
 
 var createApi = &cobra.Command{
-	Use:   "createApi",
+	Use:   "apiCreate",
 	Short: "Customize the service and automatically generate the API directory",
 	Long:  `This command can automatically generate the project directory, which is convenient to quickly create the basic project code`,
 	Args: func(cmd *cobra.Command, args []string) error {
