@@ -28,6 +28,19 @@ ingress-nginx-controller   2         2         2       2            2           
 
 kubectl get ing
 NAME          CLASS   HOSTS         ADDRESS       PORTS   AGE
-nginx-route   nginx   nginx-route   10.96.3.196   80      72s
+nginx-route   nginx   nginx-route.com   10.96.3.196   80      72s
 
+
+kubectl get po -o wide
+NAME                                   READY   STATUS      RESTARTS   AGE     IP              NODE         NOMINATED NODE   READINESS GATES
+nginx-68b884cdc8-jvv4g                 1/1     Running     0          4h47m   100.93.142.8    k8snode202   <none>           <none>
+nginx-68b884cdc8-lw6kn                 1/1     Running     0          4h47m   100.66.222.11   k8snode201   <none>           <none>
+```
+
+### 不需要修改hosts
+
+```shell
+curl --resolve nginx-route.com:80:192.168.0.201 "http://nginx-route.com/"
+
+curl --resolve nginx-route.com:80:192.168.0.202 "http://nginx-route.com/"
 ```
