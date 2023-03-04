@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/helper"
+	"github.com/LCY2013/paas/micro-api-gateway/internal/helper"
 	"go-micro.dev/v4/client"
 	"go-micro.dev/v4/errors"
 	"go-micro.dev/v4/util/cmd"

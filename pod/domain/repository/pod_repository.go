@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/LCY2013/thinking-in-go/paas/pod/domain/model"
+	"github.com/LCY2013/paas/pod/domain/model"
 	"github.com/jinzhu/gorm"
 )
 

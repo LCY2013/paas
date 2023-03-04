@@ -1,4 +1,4 @@
-module github.com/LCY2013/thinking-in-go/paas/micro-api-gateway
+module github.com/LCY2013/paas/micro-api-gateway
 
 go 1.20
 

@@ -4,9 +4,9 @@ import (
 	"context"
 	log "github.com/LCY2013/paas/common/logger"
 	"github.com/LCY2013/paas/common/util"
-	"github.com/LCY2013/thinking-in-go/paas/pod/domain/model"
-	"github.com/LCY2013/thinking-in-go/paas/pod/domain/service"
-	pod "github.com/LCY2013/thinking-in-go/paas/pod/proto/pod"
+	"github.com/LCY2013/paas/pod/domain/model"
+	"github.com/LCY2013/paas/pod/domain/service"
+	pod "github.com/LCY2013/paas/pod/proto/pod"
 	"strconv"
 )
 
