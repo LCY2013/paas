@@ -16,7 +16,7 @@ type clientWrapper struct {
 	client.Client
 }
 
-//熔断逻辑
+// Call 熔断逻辑
 func (c *clientWrapper) Call(ctx context.Context, req client.Request, rsp interface{}, opts ...client.CallOption) error {
 	return hystrix.Do(req.Service()+"."+req.Endpoint(), func() error {
 		//正常执行

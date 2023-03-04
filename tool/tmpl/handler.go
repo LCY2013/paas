@@ -23,12 +23,12 @@ import (
 )
 
 type {{title .Alias}}Handler struct{
-     //注意这里的类型是 I{{title .Alias}}DataService 接口类型
+     // {{title .Alias}}DataService 注意这里的类型是 I{{title .Alias}}DataService 接口类型
      {{title .Alias}}DataService service.I{{title .Alias}}DataService
 }
 
 
-// Call is a single request handler called via client.Call or the generated client code
+// Add{{title .Alias}} Call is a single request handler called via client.Call or the generated client code
 func (e *{{title .Alias}}Handler) Add{{title .Alias}}(ctx context.Context,info *{{.Alias}}.{{title .Alias}}Info , rsp *{{.Alias}}.Response) error {
 	log.Info("Received *{{.Alias}}.Add{{title .Alias}} request")
 

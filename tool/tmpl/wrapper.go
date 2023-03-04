@@ -13,13 +13,13 @@ import (
 
 type {{.Alias}}Key struct {}
 
-// FromContext retrieves the client from the Context
+// {{title .Alias}}FromContext FromContext retrieves the client from the Context
 func {{title .Alias}}FromContext(ctx context.Context) ({{.Alias}}.{{title .Alias}}Service, bool) {
 	c, ok := ctx.Value({{.Alias}}Key{}).({{.Alias}}.{{title .Alias}}Service)
 	return c, ok
 }
 
-// Client returns a wrapper for the {{title .Alias}}Client
+// {{title .Alias}}Wrapper Client returns a wrapper for the {{title .Alias}}Client
 func {{title .Alias}}Wrapper(service micro.Service) server.HandlerWrapper {
 	client := {{.Alias}}.New{{title .Alias}}Service("go.micro.service.template", service.Client())
 
