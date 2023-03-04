@@ -24,6 +24,7 @@ import (
 	regRouter "go-micro.dev/v4/api/router/registry"
 	"go-micro.dev/v4/api/server"
 	"go-micro.dev/v4/api/server/acme"
+	"go-micro.dev/v4/api/server/cors"
 	httpapi "go-micro.dev/v4/api/server/http"
 	"go-micro.dev/v4/registry"
 	"go-micro.dev/v4/util/log"
@@ -180,6 +181,12 @@ func Run(ctx *cli.Context, srvOpts ...micro.Option) {
 
 	if ctx.Bool("enable_cors") {
 		opts = append(opts, server.EnableCORS(true))
+		opts = append(opts, server.CORSConfig(&cors.Config{
+			//AllowCredentials: true,
+			//AllowOrigin:      "*",
+			//AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
+			//AllowHeaders:     "Accept, Content-Type, Content-Length",
+		}))
 	}
 
 	// create the router
@@ -328,21 +335,25 @@ func Run(ctx *cli.Context, srvOpts ...micro.Option) {
 
 	api := httpapi.NewServer(Address)
 
-	api.Init(opts...)
+	err := api.Init(opts...)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	api.Handle("/", h)
 
 	// Start API
-	if err := api.Start(); err != nil {
+	if err = api.Start(); err != nil {
 		log.Fatal(err)
 	}
 
 	// Run server
-	if err := service.Run(); err != nil {
+	if err = service.Run(); err != nil {
 		log.Fatal(err)
 	}
 
 	// Stop API
-	if err := api.Stop(); err != nil {
+	if err = api.Stop(); err != nil {
 		log.Fatal(err)
 	}
 }
