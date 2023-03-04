@@ -45,11 +45,11 @@ services:
       - "6831:6831/udp"
       - "16686:16686"
   #添加熔断看板
-#  hystrix-dashboard:
-#    #镜像名称
-#    image: mlabouardy/hystrix-dashboard
-#    ports:
-#      - "9002:9002"
+  hystrix-dashboard:
+    #镜像名称
+    image: mlabouardy/hystrix-dashboard
+    ports:
+      - "9002:9002"
   #添加监控镜像
   prometheus:
     image: prom/prometheus
