@@ -182,10 +182,14 @@ func main() {
 
 	// 注册句柄，可以快速操作已开发的服务
 	{{.Alias}}DataService:=ds.New{{title .Alias}}DataService(repository.New{{title .Alias}}Repository(db),clientset)
-	{{.Alias}}.Register{{title .Alias}}Handler(service.Server(), &handler.{{title .Alias}}Handler{ {{title .Alias}}DataService:{{.Alias}}DataService})
+	err = {{.Alias}}.Register{{title .Alias}}Handler(service.Server(), &handler.{{title .Alias}}Handler{ {{title .Alias}}DataService:{{.Alias}}DataService})
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 
 	// 启动服务
-	if err := service.Run(); err != nil {
+	if err = service.Run(); err != nil {
         //输出启动失败信息
 		log.Fatal(err)
 	}
