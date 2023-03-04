@@ -128,7 +128,7 @@ func (u *{{title .Alias}}DataService) Find{{title .Alias}}ByID({{.Alias}}ID int6
 	return u.{{title .Alias}}Repository.Find{{title .Alias}}ByID({{.Alias}}ID)
 }
 
-// FindAll 查找
+// FindAll{{title .Alias}} 查找
 func (u *{{title .Alias}}DataService) FindAll{{title .Alias}}() ([]model.{{title .Alias}}, error) {
 	return u.{{title .Alias}}Repository.FindAll()
 }
