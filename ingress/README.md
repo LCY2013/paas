@@ -26,6 +26,8 @@ kubectl get daemonset
 NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
 ingress-nginx-controller   2         2         2       2            2           kubernetes.io/os=linux   73s
 
-
+kubectl get ing
+NAME          CLASS   HOSTS         ADDRESS       PORTS   AGE
+nginx-route   nginx   nginx-route   10.96.3.196   80      72s
 
 ```
