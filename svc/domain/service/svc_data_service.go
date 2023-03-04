@@ -82,10 +82,10 @@ func (u *SvcDataService) setService(svcInfo *svc.SvcInfo) *v1.Service {
 		Namespace: svcInfo.SvcNamespace,
 		Labels: map[string]string{
 			"app-name": svcInfo.SvcPodName,
-			"author":   "Caplost",
+			"author":   "fufeng",
 		},
 		Annotations: map[string]string{
-			"k8s/generated-by-cap": "由Cap老师代码创建",
+			"k8s/generated-by-fufeng": "create by fufeng",
 		},
 	}
 	//设置服务的spec信息，采用ClusterIP模式
