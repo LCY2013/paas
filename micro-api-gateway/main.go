@@ -1,7 +1,7 @@
 package main
 
 import (
-	apiCmd "api/cmd"
+	apiCmd "github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/cmd"
 	"github.com/go-acme/lego/v4/log"
 )
 

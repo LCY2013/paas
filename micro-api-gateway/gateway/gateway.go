@@ -1,13 +1,13 @@
 package gateway
 
 import (
-	"api/internal/handler"
-	"api/internal/helper"
-	"api/internal/namespace"
-	apiReg "api/internal/registry"
-	rrmicro "api/internal/resolver/api"
-	"api/stats"
 	"fmt"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/handler"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/helper"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/namespace"
+	apiReg "github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/registry"
+	rrmicro "github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/resolver/api"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/stats"
 	grpcClient "github.com/go-micro/plugins/v4/client/grpc"
 	"go-micro.dev/v4"
 	ahandler "go-micro.dev/v4/api/handler"

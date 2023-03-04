@@ -1,9 +1,9 @@
 package registry
 
 import (
-	"api/internal/registry/consul"
-	"api/internal/registry/etcd"
-	"api/internal/registry/kubernetes"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/registry/consul"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/registry/etcd"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/registry/kubernetes"
 	"go-micro.dev/v4/registry"
 )
 

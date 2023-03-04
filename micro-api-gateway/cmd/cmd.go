@@ -2,8 +2,8 @@
 package cmd
 
 import (
-	"api/gateway"
 	"fmt"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/gateway"
 	"github.com/go-micro/plugins/v4/registry/consul"
 	"go-micro.dev/v4/auth"
 	"go-micro.dev/v4/broker"

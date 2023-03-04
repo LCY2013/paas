@@ -85,7 +85,7 @@ sudo docker run  -p 8081:8081 -p 9092:9092 -p 9192:9192 /替换成绝对路径/.
 * 3.1使用 micro-api-gateway 建立网关
 
 ` + "```" + `
-sudo docker run -d -p 8080:8080 gharsallahmoez/micro   --registry=consul --registry_address=替换成注册中心地址:8500 api --handler=api
+sudo docker run -d -p 8080:8080 luochunyun/micro-api-gateway   --registry=consul --registry_address=替换成注册中心地址:8500 api --handler=api
 ` + "```" + `
 注意：这里的地址要是能够访问的主机地址，不能是内网地址。
 
@@ -179,7 +179,7 @@ sudo docker run  -p 8081:8081 -p 9092:9092 -p 9192:9192 /替换成绝对路径/.
 * 3.1使用 micro-api-gateway 建立网关
 
 ` + "```" + `
-sudo docker run -d -p 8080:8080 gharsallahmoez/micro   --registry=consul --registry_address=替换成注册中心地址:8500 api --handler=api
+sudo docker run -d -p 8080:8080 luochunyun/micro-api-gateway   --registry=consul --registry_address=替换成注册中心地址:8500 api --handler=api
 ` + "```" + `
 注意：这里的地址要是能够访问的主机地址，不能是内网地址。
 
