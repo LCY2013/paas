@@ -27,15 +27,15 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Api Endpoints for RouteApi service
+// Api Endpoints for Routeapi service
 
-func NewRouteApiEndpoints() []*api.Endpoint {
+func NewRouteapiEndpoints() []*api.Endpoint {
 	return []*api.Endpoint{}
 }
 
-// Client API for RouteApi service
+// Client API for Routeapi service
 
-type RouteApiService interface {
+type RouteapiService interface {
 	FindRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
 	AddRoute(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
 	DeleteRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
@@ -44,20 +44,20 @@ type RouteApiService interface {
 	Call(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
 }
 
-type routeApiService struct {
+type routeapiService struct {
 	c    client.Client
 	name string
 }
 
-func NewRouteApiService(name string, c client.Client) RouteApiService {
-	return &routeApiService{
+func NewRouteapiService(name string, c client.Client) RouteapiService {
+	return &routeapiService{
 		c:    c,
 		name: name,
 	}
 }
 
-func (c *routeApiService) FindRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "RouteApi.FindRouteById", in)
+func (c *routeapiService) FindRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Routeapi.FindRouteById", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -66,8 +66,8 @@ func (c *routeApiService) FindRouteById(ctx context.Context, in *Request, opts .
 	return out, nil
 }
 
-func (c *routeApiService) AddRoute(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "RouteApi.AddRoute", in)
+func (c *routeapiService) AddRoute(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Routeapi.AddRoute", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -76,8 +76,8 @@ func (c *routeApiService) AddRoute(ctx context.Context, in *Request, opts ...cli
 	return out, nil
 }
 
-func (c *routeApiService) DeleteRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "RouteApi.DeleteRouteById", in)
+func (c *routeapiService) DeleteRouteById(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Routeapi.DeleteRouteById", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -86,8 +86,8 @@ func (c *routeApiService) DeleteRouteById(ctx context.Context, in *Request, opts
 	return out, nil
 }
 
-func (c *routeApiService) UpdateRoute(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "RouteApi.UpdateRoute", in)
+func (c *routeapiService) UpdateRoute(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Routeapi.UpdateRoute", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -96,8 +96,8 @@ func (c *routeApiService) UpdateRoute(ctx context.Context, in *Request, opts ...
 	return out, nil
 }
 
-func (c *routeApiService) Call(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.name, "RouteApi.Call", in)
+func (c *routeapiService) Call(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.name, "Routeapi.Call", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -106,9 +106,9 @@ func (c *routeApiService) Call(ctx context.Context, in *Request, opts ...client.
 	return out, nil
 }
 
-// Server API for RouteApi service
+// Server API for Routeapi service
 
-type RouteApiHandler interface {
+type RouteapiHandler interface {
 	FindRouteById(context.Context, *Request, *Response) error
 	AddRoute(context.Context, *Request, *Response) error
 	DeleteRouteById(context.Context, *Request, *Response) error
@@ -117,41 +117,41 @@ type RouteApiHandler interface {
 	Call(context.Context, *Request, *Response) error
 }
 
-func RegisterRouteApiHandler(s server.Server, hdlr RouteApiHandler, opts ...server.HandlerOption) error {
-	type routeApi interface {
+func RegisterRouteapiHandler(s server.Server, hdlr RouteapiHandler, opts ...server.HandlerOption) error {
+	type routeapi interface {
 		FindRouteById(ctx context.Context, in *Request, out *Response) error
 		AddRoute(ctx context.Context, in *Request, out *Response) error
 		DeleteRouteById(ctx context.Context, in *Request, out *Response) error
 		UpdateRoute(ctx context.Context, in *Request, out *Response) error
 		Call(ctx context.Context, in *Request, out *Response) error
 	}
-	type RouteApi struct {
-		routeApi
+	type Routeapi struct {
+		routeapi
 	}
-	h := &routeApiHandler{hdlr}
-	return s.Handle(s.NewHandler(&RouteApi{h}, opts...))
+	h := &routeapiHandler{hdlr}
+	return s.Handle(s.NewHandler(&Routeapi{h}, opts...))
 }
 
-type routeApiHandler struct {
-	RouteApiHandler
+type routeapiHandler struct {
+	RouteapiHandler
 }
 
-func (h *routeApiHandler) FindRouteById(ctx context.Context, in *Request, out *Response) error {
-	return h.RouteApiHandler.FindRouteById(ctx, in, out)
+func (h *routeapiHandler) FindRouteById(ctx context.Context, in *Request, out *Response) error {
+	return h.RouteapiHandler.FindRouteById(ctx, in, out)
 }
 
-func (h *routeApiHandler) AddRoute(ctx context.Context, in *Request, out *Response) error {
-	return h.RouteApiHandler.AddRoute(ctx, in, out)
+func (h *routeapiHandler) AddRoute(ctx context.Context, in *Request, out *Response) error {
+	return h.RouteapiHandler.AddRoute(ctx, in, out)
 }
 
-func (h *routeApiHandler) DeleteRouteById(ctx context.Context, in *Request, out *Response) error {
-	return h.RouteApiHandler.DeleteRouteById(ctx, in, out)
+func (h *routeapiHandler) DeleteRouteById(ctx context.Context, in *Request, out *Response) error {
+	return h.RouteapiHandler.DeleteRouteById(ctx, in, out)
 }
 
-func (h *routeApiHandler) UpdateRoute(ctx context.Context, in *Request, out *Response) error {
-	return h.RouteApiHandler.UpdateRoute(ctx, in, out)
+func (h *routeapiHandler) UpdateRoute(ctx context.Context, in *Request, out *Response) error {
+	return h.RouteapiHandler.UpdateRoute(ctx, in, out)
 }
 
-func (h *routeApiHandler) Call(ctx context.Context, in *Request, out *Response) error {
-	return h.RouteApiHandler.Call(ctx, in, out)
+func (h *routeapiHandler) Call(ctx context.Context, in *Request, out *Response) error {
+	return h.RouteapiHandler.Call(ctx, in, out)
 }

@@ -22,4 +22,6 @@ go run main.go  api \
   --enable_cors=true \
   --handler=api \
   --namespace=go.micro.api  
+  
+api --registry=consul --registry_address=192.168.0.57:8500 --enable_cors=true --handler=api --namespace=go.micro.api    
 ```

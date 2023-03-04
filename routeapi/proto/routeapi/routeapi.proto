@@ -4,7 +4,7 @@ package routeapi;
 
 option go_package = "./proto/routeapi;routeapi";
 
-service RouteApi {
+service Routeapi {
 	rpc FindRouteById(Request) returns (Response){}
 	rpc AddRoute(Request) returns (Response){}
 	rpc DeleteRouteById(Request) returns (Response){}

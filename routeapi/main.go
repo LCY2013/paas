@@ -115,7 +115,7 @@ func main() {
 	// 如果不带有特定字符会使用默认"XXX" 请自行替换
 	routeService := go_micro_service_route.NewRouteService("go.micro.service.route", service.Client())
 	// 注册控制器
-	if err := routeapi.RegisterRouteApiHandler(service.Server(), &handler.RouteApi{RouteService: routeService}); err != nil {
+	if err := routeapi.RegisterRouteapiHandler(service.Server(), &handler.Routeapi{RouteService: routeService}); err != nil {
 		log.Error(err)
 	}
 
