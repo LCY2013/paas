@@ -17,6 +17,12 @@ test:
 .PHONY: docker
 docker:
 	docker build . -t {{.Alias}}:latest
+
+.PHONY: build-in-docker
+build-in-docker:
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o {{.Alias}} *.go
+	docker build . -t luochunyun/{{.Alias}}:latest
+	rm -rf {{.Alias}}
 `
 
 	//	GenerateFile = `package main
