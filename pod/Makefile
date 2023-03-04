@@ -15,6 +15,7 @@ test:
 docker:
 	docker build . -t pod:latest
 
+.PHONY: build-in-docker
 build-in-docker:
 	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o pod *.go
 	docker build . -t luochunyun/pod:latest
