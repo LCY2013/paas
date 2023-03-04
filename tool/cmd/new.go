@@ -46,6 +46,24 @@ var newService = &cobra.Command{
 
 //自动生成基础接口程序
 
+var api = &cobra.Command{
+	Use:   "api",
+	Short: "Customize the service and automatically generate the API directory",
+	Long:  `This command can automatically generate the project directory, which is convenient to quickly create the basic project code`,
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 {
+			return errors.New("please enter the project name")
+		}
+		return nil
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+		err := module.NewApiProject(cmd, args, true)
+		if err != nil {
+			return
+		}
+	},
+}
+
 var createApi = &cobra.Command{
 	Use:   "createApi",
 	Short: "Customize the service and automatically generate the API directory",
@@ -57,7 +75,7 @@ var createApi = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		err := module.NewApiProject(cmd, args)
+		err := module.NewApiProject(cmd, args, false)
 		if err != nil {
 			return
 		}
@@ -70,6 +88,7 @@ func init() {
 	rootCmd.AddCommand(new)
 	rootCmd.AddCommand(newService)
 	rootCmd.AddCommand(createApi)
+	rootCmd.AddCommand(api)
 	//设置flags
 	//newCmd.PersistentFlags().String("service", "s", "自动生成 service 项目代码")
 

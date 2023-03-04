@@ -193,7 +193,7 @@ func NewServiceProject(ctx *cobra.Command, args []string, createDir bool) error 
 	return nil
 }
 
-func NewApiProject(ctx *cobra.Command, args []string) error {
+func NewApiProject(ctx *cobra.Command, args []string, createDir bool) error {
 
 	for _, serviceArg := range args {
 		serviceSlice := strings.Split(serviceArg, "/")
@@ -233,6 +233,7 @@ func NewApiProject(ctx *cobra.Command, args []string) error {
 				{".gitignore", tmpl.GitIgnore},
 				{"go.mod", tmpl.ApiModule},
 			},
+			CreateAlias: createDir,
 		}
 		// create the files
 
