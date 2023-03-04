@@ -2,8 +2,8 @@
 package http
 
 import (
-	"api/server/cors"
 	"crypto/tls"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/server/cors"
 	"go-micro.dev/v4/api/server"
 	"go-micro.dev/v4/logger"
 	"net"

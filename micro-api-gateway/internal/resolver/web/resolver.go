@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"api/internal/namespace"
+	"github.com/LCY2013/thinking-in-go/paas/micro-api-gateway/internal/namespace"
 	res "go-micro.dev/v4/api/resolver"
 	"go-micro.dev/v4/selector"
 	"golang.org/x/net/publicsuffix"
