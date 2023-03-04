@@ -15,4 +15,11 @@ go run main.go api \
   --registry_address=192.168.0.57:8500 \
   --handler=api \
   --namespace=go.micro.api
+  
+go run main.go  api \
+  --registry=consul \
+  --registry_address=192.168.0.57:8500 \
+  --enable_cors=true \
+  --handler=api \
+  --namespace=go.micro.api  
 ```
