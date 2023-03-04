@@ -209,31 +209,31 @@ func NewApiProject(ctx *cobra.Command, args []string, createDir bool) error {
 			return nil
 		}
 
-		apiDefaultServerName := "api"
+		apiDefaultServerNameAlias := "api"
 		//判断在API的状态下默认的服务名称
 		if strings.Contains(serviceName, "api") {
 			//替换指定Api的字符为空
-			apiDefaultServerName = strings.Replace(serviceName, "api", "", 1)
+			apiDefaultServerNameAlias = strings.Replace(serviceName, "api", "", 1)
 		} else if strings.Contains(serviceName, "Api") {
 			//替换指定Api的字符为空
-			apiDefaultServerName = strings.Replace(serviceName, "Api", "", 1)
+			apiDefaultServerNameAlias = strings.Replace(serviceName, "Api", "", 1)
 		}
 
-		defaultServerName := "api_service"
+		defaultServerNameDir := "api_service"
 		//判断在API的状态下默认的服务名称
 		if strings.Contains(serviceName, "api") {
 			//替换指定Api的字符为空
-			defaultServerName = strings.Replace(serviceArg, "api", "", 1)
+			defaultServerNameDir = strings.Replace(serviceArg, "api", "", 1)
 		} else if strings.Contains(serviceName, "Api") {
 			//替换指定Api的字符为空
-			defaultServerName = strings.Replace(serviceArg, "Api", "", 1)
+			defaultServerNameDir = strings.Replace(serviceArg, "Api", "", 1)
 		}
 
 		c := config{
 			Alias:                serviceName,
 			Dir:                  serviceArg,
-			ServerAlias:          defaultServerName,
-			ApiDefaultServerName: apiDefaultServerName,
+			ServerAlias:          apiDefaultServerNameAlias,
+			ApiDefaultServerName: defaultServerNameDir,
 			Comments:             protoComments(),
 			Files: []file{
 				{"main.go", tmpl.MainAPI},

@@ -1,4 +1,4 @@
-module github.com/LCY2013/thinking-in-go/paas/pod
+module github.com/LCY2013/paas/pod
 
 go 1.20
 

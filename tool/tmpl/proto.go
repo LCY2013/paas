@@ -68,10 +68,10 @@ package {{.Alias}};
 option go_package = "./proto/{{.Alias}};{{.Alias}}";
 
 service {{title .Alias}} {
-    rpc Find{{title .ApiDefaultServerName}}ById(Request) returns (Response){}
-	rpc Add{{title .ApiDefaultServerName}}(Request) returns (Response){}
-	rpc Delete{{title .ApiDefaultServerName}}ById(Request) returns (Response){}
-	rpc Update{{title .ApiDefaultServerName}}(Request) returns (Response){}
+    rpc Find{{title .ServerAlias}}ById(Request) returns (Response){}
+	rpc Add{{title .ServerAlias}}(Request) returns (Response){}
+	rpc Delete{{title .ServerAlias}}ById(Request) returns (Response){}
+	rpc Update{{title .ServerAlias}}(Request) returns (Response){}
 	//默认接口
 	rpc Call(Request) returns (Response){}
 }
