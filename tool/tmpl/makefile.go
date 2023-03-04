@@ -8,7 +8,7 @@ proto:
 
 .PHONY: build
 build:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o {{.Alias}} *.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o {{.Alias}} *.go
 
 .PHONY: test
 test:
