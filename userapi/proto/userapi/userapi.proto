@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package userapi;
+
+option go_package = "./proto/userapi;userapi";
+
+service Userapi {
+    rpc FindUserById(Request) returns (Response){}
+	rpc AddUser(Request) returns (Response){}
+	rpc DeleteUserById(Request) returns (Response){}
+	rpc UpdateUser(Request) returns (Response){}
+	//默认接口
+	rpc Call(Request) returns (Response){}
+
+	rpc AddRole(Request) returns (Response){}
+	rpc UpdateRole(Request) returns (Response){}
+	rpc DeleteRole(Request) returns (Response){}
+
+	rpc IsRight(Request) returns (Response){}
+
+	rpc AddPermission(Request) returns (Response){}
+	rpc UpdatePermission(Request) returns (Response){}
+	rpc DeletePermission(Request) returns (Response){}
+}
+
+message Pair {
+	string key = 1;
+	repeated string values = 2;
+}
+
+
+message Request {
+	string method = 1;
+	string path = 2;
+	map<string, Pair> header = 3;
+	map<string, Pair> get = 4;
+	map<string, Pair> post = 5;
+	string body = 6;
+	string url = 7;
+}
+
+
+message Response {
+	int32 statusCode = 1;
+	map<string, Pair> header = 2;
+	string body = 3;
+}
+
