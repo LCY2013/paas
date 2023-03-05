@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package appstoreapi;
+
+option go_package = "./proto/appstoreapi;appstoreapi";
+
+service Appstoreapi {
+    rpc FindAppstoreById(Request) returns (Response){}
+	rpc AddAppstore(Request) returns (Response){}
+	rpc DeleteAppstoreById(Request) returns (Response){}
+	rpc UpdateAppstore(Request) returns (Response){}
+	//默认接口
+	rpc Call(Request) returns (Response){}
+
+	//添加常用的统计接口
+	rpc AddInstallNum(Request) returns (Response){}
+	rpc GetInstallNum(Request) returns (Response){}
+	rpc AddViewNum(Request) returns (Response){}
+	rpc GetViewNum(Request) returns (Response){}
+}
+
+message Pair {
+	string key = 1;
+	repeated string values = 2;
+}
+
+
+message Request {
+	string method = 1;
+	string path = 2;
+	map<string, Pair> header = 3;
+	map<string, Pair> get = 4;
+	map<string, Pair> post = 5;
+	string body = 6;
+	string url = 7;
+}
+
+
+message Response {
+	int32 statusCode = 1;
+	map<string, Pair> header = 2;
+	string body = 3;
+}
+
