@@ -180,7 +180,12 @@ func main() {
 
 	// 注册句柄，可以快速操作已开发的服务
 	middlewareDataService := ds.NewMiddlewareDataService(repository.NewMiddlewareRepository(db), clientset)
-	err = middleware.RegisterMiddlewareHandler(service.Server(), &handler.MiddlewareHandler{MiddlewareDataService: middlewareDataService})
+	middlewareTypeDataService := ds.NewMiddleTypeDataService(repository.NewMiddleTypeRepository(db))
+	err = middleware.RegisterMiddlewareHandler(service.Server(),
+		&handler.MiddlewareHandler{
+			MiddlewareDataService: middlewareDataService,
+			MiddleTypeDataService: middlewareTypeDataService,
+		})
 	if err != nil {
 		log.Fatal(err)
 		return
